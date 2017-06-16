@@ -12,7 +12,7 @@ def my_global_function(a,b):
 
 class AboutMethods(Koan):
     def test_calling_a_global_function(self):
-        self.assertEqual(__, my_global_function(2,3))
+        self.assertEqual(5, my_global_function(2,3))
 
     # NOTE: Wrong number of arguments is not a SYNTAX error, but a
     # runtime error.
@@ -41,7 +41,7 @@ class AboutMethods(Koan):
         sum = a + b
 
     def test_which_does_not_return_anything(self):
-        self.assertEqual(__, self.pointless_method(1, 2))
+        self.assertEqual(None, self.pointless_method(1, 2))
         # Notice that methods accessed from class scope do not require
         # you to pass the first "self" argument?
 
