@@ -40,7 +40,7 @@ class Proxy:
             return get.__get__(self)
         else:
             # If the method isn't in our dictionary, act normal.
-            raise AttributeError, method_name
+            raise AttributeError
 
     # WRITE CODE HERE
 
