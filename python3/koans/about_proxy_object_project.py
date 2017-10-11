@@ -20,29 +20,35 @@ from runner.koan import *
 
 class Proxy:
     def __init__(self, target_object):
-        # WRITE CODE HERE
+        self._messages = []
 
         #initialize '_obj' attribute last. Trust me on this!
         self._obj = target_object
 
     def __getattr__(self, method_name):
-        """
-            This is called every time a class method or property
-            is checked and/or called.
+        self._messages.append(method_name)
+        return self._obj.__getattribute__(method_name)
 
-            In here we'll return a new function to handle what we
-            want to do.
-        """
-        # def get(self, **kwargs):
-            # Make our API calls, return data, etc
+    def __setattr__(self, attr_name, value):
+      names = ["_obj", "_messages", "messages", "was_called", "number_of_times_called"]
+      if attr_name in names:
+        return object.__setattr__(self, attr_name, value)
+      else:
+        self._messages.append(attr_name)
+        self._obj.__setattr__(attr_name, value)
 
-        if method_name in method_dictionary:
-            return get.__get__(self)
-        else:
-            # If the method isn't in our dictionary, act normal.
-            raise AttributeError
+    def messages(self):
+        return self._messages
 
-    # WRITE CODE HERE
+    def was_called(self, m):
+        return m in self._messages
+
+    def number_of_times_called(self, m):
+        number = 0
+        for message in self._messages:
+            if message == m:
+                number += 1
+        return number
 
 # The proxy object should pass the following Koan:
 #
