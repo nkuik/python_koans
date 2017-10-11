@@ -25,6 +25,23 @@ class Proxy:
         #initialize '_obj' attribute last. Trust me on this!
         self._obj = target_object
 
+    def __getattr__(self, method_name):
+        """
+            This is called every time a class method or property
+            is checked and/or called.
+
+            In here we'll return a new function to handle what we
+            want to do.
+        """
+        # def get(self, **kwargs):
+            # Make our API calls, return data, etc
+
+        if method_name in method_dictionary:
+            return get.__get__(self)
+        else:
+            # If the method isn't in our dictionary, act normal.
+            raise AttributeError
+
     # WRITE CODE HERE
 
 # The proxy object should pass the following Koan:
